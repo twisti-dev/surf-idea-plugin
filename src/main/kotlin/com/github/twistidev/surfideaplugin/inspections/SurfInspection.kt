@@ -1,6 +1,6 @@
 package com.github.twistidev.surfideaplugin.inspections
 
-import com.intellij.codeInspection.AbstractBaseKotlinLocalInspectionTool
+import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.psi.PsiElementVisitor
@@ -10,7 +10,7 @@ import com.github.twistidev.surfideaplugin.settings.SurfModuleContext
 /**
  * Base class for Surf-related Kotlin inspections
  */
-abstract class SurfInspection : AbstractBaseKotlinLocalInspectionTool() {
+abstract class SurfInspection : LocalInspectionTool() {
     
     /**
      * Check if the inspection should run for the given element's module
