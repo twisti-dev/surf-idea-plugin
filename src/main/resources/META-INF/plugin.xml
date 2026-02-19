@@ -5,11 +5,47 @@
     <vendor>twisti-dev</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.kotlin</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.twistidev.surfideaplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
         <postStartupActivity implementation="com.github.twistidev.surfideaplugin.startup.MyProjectActivity" />
+        
+        <!-- Surf Project Settings Service -->
+        <projectService serviceImplementation="com.github.twistidev.surfideaplugin.settings.SurfProjectSettingsService"/>
+        
+        <!-- Framework Support -->
+        <framework.type implementation="com.github.twistidev.surfideaplugin.framework.SurfFrameworkType"/>
+        
+        <!-- Inspections -->
+        <localInspection 
+            language="kotlin" 
+            groupName="Surf Framework"
+            displayName="Redis Service Conventions"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="com.github.twistidev.surfideaplugin.inspections.RedisServiceInspection"/>
+        
+        <!-- Entry Points / Implicit Usage -->
+        <implicitUsageProvider implementation="com.github.twistidev.surfideaplugin.entrypoints.SurfImplicitUsageProvider"/>
     </extensions>
+
+    <actions>
+        <!-- Surf Action Group -->
+        <group id="Surf.GenerateGroup" text="Surf" description="Surf Framework Code Generation" popup="true">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+            
+            <action id="Surf.GenerateRedisService" 
+                    class="com.github.twistidev.surfideaplugin.actions.GenerateRedisServiceAction"
+                    text="Redis Service"
+                    description="Generate a Surf Redis service class"/>
+            
+            <action id="Surf.GenerateEventHandler"
+                    class="com.github.twistidev.surfideaplugin.actions.GenerateEventHandlerAction"
+                    text="Event Handler"
+                    description="Generate a Surf event handler class"/>
+        </group>
+    </actions>
 </idea-plugin>
